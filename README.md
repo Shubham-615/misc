@@ -27,9 +27,7 @@ Docker (optional, for containerization)
 
 # Installation
 Clone the repository:
-  git clone https://github.com/your-repo/document-ingestion-rag.git
-  cd document-ingestion-rag
-
+  git clone
 # Install dependencies:
   pip install -r requirements.txt
 
@@ -37,7 +35,7 @@ Clone the repository:
 
 Create a .env file with the following content:
   OPENAI_API_KEY=your_openai_api_key
-  DATABASE_URL=postgresql://user:password@localhost:5432/your_db_name
+  DATABASE_URL=postgresql://user:password@localhost:5432/db_name
 
 Create the PostgreSQL table:
   CREATE TABLE IF NOT EXISTS documents (
