@@ -18,67 +18,67 @@
   License
 
 # Setup
-# Prerequisites
-
-Python 3.9+
-PostgreSQL
-OpenAI API Key
-Docker (optional, for containerization)
-
-# Installation
-Clone the repository:
-  git clone
-# Install dependencies:
-  pip install -r requirements.txt
-
-# Set environment variables:
-
-Create a .env file with the following content:
-  OPENAI_API_KEY=your_openai_api_key
-  DATABASE_URL=postgresql://user:password@localhost:5432/db_name
-
-Create the PostgreSQL table:
-  CREATE TABLE IF NOT EXISTS documents (
-      id SERIAL PRIMARY KEY,
-      title TEXT NOT NULL,
-      content TEXT NOT NULL,
-      embedding float[]
-  );
-
-Run the application:
-  uvicorn main:app --reload
+  # Prerequisites
+  
+  Python 3.9+
+  PostgreSQL
+  OpenAI API Key
+  Docker (optional, for containerization)
+  
+  # Installation
+  Clone the repository:
+    git clone
+  # Install dependencies:
+    pip install -r requirements.txt
+  
+  # Set environment variables:
+  
+  Create a .env file with the following content:
+    OPENAI_API_KEY=your_openai_api_key
+    DATABASE_URL=postgresql://user:password@localhost:5432/db_name
+  
+  Create the PostgreSQL table:
+    CREATE TABLE IF NOT EXISTS documents (
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        content TEXT NOT NULL,
+        embedding float[]
+    );
+  
+  Run the application:
+    uvicorn main:app --reload
 
 # Usage
-# Document Ingestion
-
-Upload a document to generate embeddings and store it in the database:
-  curl -X POST "http://localhost:8000/ingest/" \
-  -H "accept: application/json" \
-  -F "file=@example.txt"
-
-# Ask a Question:
-    Ask a question to retrieve an answer based on stored documents:
-      curl -X POST "http://localhost:8000/ask/" \
+  # Document Ingestion
+  
+  Upload a document to generate embeddings and store it in the database:
+    curl -X POST "http://localhost:8000/ingest/" \
+    -H "accept: application/json" \
+    -F "file=@example.txt"
+  
+  # Ask a Question:
+      Ask a question to retrieve an answer based on stored documents:
+        curl -X POST "http://localhost:8000/ask/" \
+        -H "Content-Type: application/json" \
+        -d '{"question": "What is this document about?"}'
+  
+  
+  # Select Documents :
+  
+    Specify which documents to consider during Q&A:
+      curl -X POST "http://localhost:8000/select-documents/" \
       -H "Content-Type: application/json" \
-      -d '{"question": "What is this document about?"}'
-
-
-# Select Documents :
-
-  Specify which documents to consider during Q&A:
-    curl -X POST "http://localhost:8000/select-documents/" \
-    -H "Content-Type: application/json" \
-    -d '{"document_ids": [1, 2]}'
-
-
-
-# API Endpoints:
-
-  ENDPOINT  METHOD  DESCRIPTION
-  /ingest/  POST  Upload a document and store its embedding.
-  /ask/  POST  Ask a question and get an answer.
-  /select-documents/  POST  Select specific documents for Q&A.
-  /health/  GET  Check if the service is running.
+      -d '{"document_ids": [1, 2]}'
+  
+  
+  
+  # API Endpoints:
+  
+    ENDPOINT  METHOD  DESCRIPTION
+    /ingest/  POST  Upload a document and store its embedding.
+    /ask/  POST  Ask a question and get an answer.
+    /select-documents/  POST  Select specific documents for Q&A.
+    /health/  GET  Check if the service is running.
 
 
 # Testing:
